@@ -15,11 +15,18 @@ int buttonBState = 0;
 int lastButtonBState = 0;
 bool B = false 
 
+//setup button C
+const int buttonCPin = 3;
+int buttonCState = 0;
+int lastButtonCState = 0;
+bool C = false 
+
 
 void setup() {
   myservo.attach(9); 
   pinMode(buttonAPin, INPUT);
   pinMode(buttonBPin, INPUT);
+  pinMode(buttonCPin, INPUT);
   Serial.begin(9600);
   Serial.println("Start Story");
 }
@@ -53,11 +60,21 @@ void loop() {
   } 
 }
 
-  if (B == true) {
+  if (B == true) { 
+  buttonCState = digitalRead(buttonCPin);
+    if (buttonCState != lastButtonCState) {
+      if (buttonCState == HIGH) {
+        C = true;
+        }
+      }
+    }
+    
+  if (C == true) {
     Serial.println("The End");
   }
   
   lastButtonAState = buttonAState;
   lastButtonBState = buttonBState; 
+  lastButtonCState = buttonCState; 
 }
 
